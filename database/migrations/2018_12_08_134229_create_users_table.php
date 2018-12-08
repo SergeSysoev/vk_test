@@ -19,13 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('screen_name')->nullable();
             $table->string('last_name');
-            $table->integer('city_id')->unsigned();
+            $table->integer('city_id')->unsigned()->nullable();
             $table->enum('sex', [UserSex::Unknown, UserSex::Female, UserSex::Male]);
             $table->string('bdate')->nullable();
             $table->string('avatar')->nullable();
 
             $table->primary('id');
-	        $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+	        $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
         });
     }
 
