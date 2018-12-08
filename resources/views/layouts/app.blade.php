@@ -8,7 +8,7 @@
 <body>
 <header class="container-fluid main-header">
     <div class="container">
-        <a href="https://oauth.vk.com/authorize?client_id=6776037&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.52" class="btn btn-primary pull-right">Login</a>
+        <a href="https://oauth.vk.com/authorize?client_id={{config('vk.app_id')}}&display=page&redirect_uri={{route('vk.login')}}&response_type=token&v=5.52" class="btn btn-primary pull-right">Login</a>
     </div>
 </header>
 @yield('content')

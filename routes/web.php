@@ -13,4 +13,10 @@
 
 Route::get('/', function () {
     return view('index');
+})->name('home');
+
+Route::group([
+	'namespace' => 'Vk',
+], function () {
+	Route::get('/login', [ 'as' => 'vk.login', 'uses' => 'LoginController@index' ]);
 });
