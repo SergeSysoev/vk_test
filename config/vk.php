@@ -7,8 +7,8 @@
  */
 
 return [
-	'app_id' => 6776037,
-	'app_secret_key' => 'ViXb5STdisQhyn6m356i',
-	'base_api_uri' => 'https://api.vk.com/method/',
-	'api_version' => '5.92',
+	'app_id' => env('VK_APP_ID'),
+	'app_secret_key' => env('VK_APP_SECRET_KEY'),
+	'base_api_uri' => env('VK_BASE_API_URI', 'https://api.vk.com/method/'),
+	'api_version' => env('VK_API_VERSION', '5.92'),
 ];
