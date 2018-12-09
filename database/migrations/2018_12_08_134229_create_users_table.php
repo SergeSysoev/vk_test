@@ -19,12 +19,14 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('screen_name')->nullable();
             $table->string('last_name');
+            $table->integer('country_id')->unsigned()->nullable();
             $table->integer('city_id')->unsigned()->nullable();
             $table->enum('sex', [UserSex::Unknown, UserSex::Female, UserSex::Male]);
             $table->string('bdate')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('photo_50')->nullable();
 
             $table->primary('id');
+	        $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
 	        $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
         });
     }

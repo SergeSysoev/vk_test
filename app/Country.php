@@ -8,6 +8,8 @@ class Country extends Model
 {
 	public $timestamps = false;
 
+	protected $fillable = ['id', 'title'];
+
 	public function cities()
 	{
 		return $this->hasMany('App\City');

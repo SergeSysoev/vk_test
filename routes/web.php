@@ -19,4 +19,5 @@ Route::group([
 	'namespace' => 'Vk',
 ], function () {
 	Route::get('/login', [ 'as' => 'vk.login', 'uses' => 'LoginController@index' ]);
+	Route::get('/store', [ 'as' => 'vk.store', 'uses' => 'LoginController@storeAccessToken' ]);
 });

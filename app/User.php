@@ -8,6 +8,18 @@ class User extends Model
 {
 	public $timestamps = false;
 
+	protected $fillable = [
+		'id',
+		'first_name',
+		'screen_name',
+		'last_name',
+		'country_id',
+		'city_id',
+		'sex',
+		'bdate',
+		'photo_50',
+	];
+
 	public function polls()
 	{
 		return $this->hasMany('App\Poll');

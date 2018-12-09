@@ -1,4 +1,13 @@
 .main-header {
   background-color: #fff;
   padding: 5px 0;
+  .user-block {
+    .user-name {
+      margin-right: 10px;
+    }
+    .user-photo {
+      border-radius: 50%;
+      width: 28px;
+    }
+  }
 }
