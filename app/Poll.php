@@ -8,6 +8,8 @@ class Poll extends Model
 {
 	public $timestamps = false;
 
+	protected $fillable = ['name', 'is_public', 'user_id'];
+
 	public function answers()
 	{
 		return $this->hasMany('App\Answer');

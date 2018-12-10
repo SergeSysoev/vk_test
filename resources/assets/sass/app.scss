@@ -8,6 +8,8 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
-@import "parts/header";
+@import "common";
 
-@import "pages/index";
+@import "parts/header";
+@import "parts/main";
+@import "parts/poll";

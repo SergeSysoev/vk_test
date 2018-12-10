@@ -8,6 +8,8 @@ class Answer extends Model
 {
 	public $timestamps = false;
 
+	protected $fillable = ['poll_id', 'text'];
+
 	public function poll()
 	{
 		return $this->belongsTo('App\Poll');

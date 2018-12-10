@@ -1,0 +1,7 @@
+.poll {
+  .answers {
+    .row:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+  }
+}
