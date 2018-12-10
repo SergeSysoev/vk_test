@@ -12,7 +12,7 @@
         <h3 class="title">{{ $poll ? 'Редактировать' : 'Создать' }} опрос</h3>
     </div>
 </div>
-<div class="row poll">
+<div class="row edit-poll">
     <div class="col-md-12">
         <form role="form" method="{{ $method }}" action="{{ $action }}">
             {{ csrf_field() }}

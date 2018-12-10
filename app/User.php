@@ -29,4 +29,9 @@ class User extends Model
 	{
 		return $this->belongsToMany('App\Answer');
 	}
+
+	public function fullName()
+	{
+		return $this->first_name . ' ' . $this->last_name;
+	}
 }

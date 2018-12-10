@@ -12,7 +12,6 @@ use App\User;
 use App\Country;
 use App\City;
 use GuzzleHttp;
-use Symfony\Component\VarDumper\VarDumper;
 
 class UserService {
 
@@ -54,12 +53,10 @@ class UserService {
 		$userData['city_id'] = $cityId;
 		$userData['sex'] = (string)$userData['sex'];
 
-		$user = User::find($userData['id']);
-
-		if(!$user) {
-			$user = User::create($userData);
+		if(!User::find($userData['id'])) {
+			User::create($userData);
 		}
 
-		return $user;
+		return $userData;
 	}
 }

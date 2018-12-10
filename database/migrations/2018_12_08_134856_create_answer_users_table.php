@@ -14,10 +14,12 @@ class CreateAnswerUsersTable extends Migration
     public function up()
     {
         Schema::create('answer_user', function (Blueprint $table) {
+			$table->integer('poll_id')->unsigned();
 			$table->integer('answer_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 
-			$table->primary(['answer_id', 'user_id']);
+			$table->primary(['poll_id', 'user_id']);
+	        $table->foreign('poll_id')->references('id')->on('polls')->onDelete('cascade');
 	        $table->foreign('answer_id')->references('id')->on('answers')->onDelete('cascade');
 	        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
@@ -30,6 +32,6 @@ class CreateAnswerUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answer_users');
+        Schema::dropIfExists('answer_user');
     }
 }

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\App;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Poll;
 use App\Answer;
 use App\Http\Requests\StorePollRequest;
-use Symfony\Component\VarDumper\VarDumper;
 
 class PollController extends Controller
 {
@@ -98,10 +96,10 @@ class PollController extends Controller
 
 	public function destroy($id)
 	{
-		$institute = Poll::find($id);
+		$poll = $this->getPoll($id);
 
-		$institute->delete();
+		$poll->delete();
 
-		return redirect(route('polls'));
+		return redirect(route('polls.my'));
 	}
 }

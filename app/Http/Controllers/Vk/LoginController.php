@@ -25,10 +25,10 @@ class LoginController extends Controller
 		    $response = json_decode($response->getBody()->getContents());
 		    $user = UserService::store($response);
 		    session([
-		    	'user_id' => $user->id,
-			    'user_name' => $user->first_name,
+		    	'user_id' => $user['id'],
+			    'user_name' => $user['first_name'],
 			    'access_token' => $response->access_token,
-			    'avatar' => $user->photo_50,
+			    'avatar' => $user['photo_50'],
 		    ]);
 		    return redirect()->route('home');
 	    } catch (RequestException $e) {

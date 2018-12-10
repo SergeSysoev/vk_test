@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User;
 
-class DatabaseSeeder extends Seeder
+class UserAnswerTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(CountriesTableSeeder::class);
-         $this->call(UserTableSeeder::class);
+	    foreach ( User::all() as $user ) {
+
+        }
     }
 }
