@@ -12,6 +12,7 @@
 */
 
 Route::get('/', [ 'as' => 'home', 'uses' => 'App\IndexController@index' ]);
+Route::get('/cities', [ 'as' => 'cities.get', 'uses' => 'App\IndexController@cities' ]);
 
 Route::group([
 	'namespace' => 'Vk',
@@ -24,7 +25,6 @@ Route::group([
 	'namespace' => 'App',
 	'prefix' => 'polls',
 ], function () {
-	Route::get('/cache', [ 'as' => 'polls.cache', 'uses' => 'CacheController@polls' ]);
 	Route::get('/my', [ 'as' => 'polls.my', 'uses' => 'PollController@my' ]);
 	Route::get('/create', [ 'as' => 'poll.create', 'uses' => 'PollController@create' ]);
 	Route::post('/create', [ 'as' => 'poll.store', 'uses' => 'PollController@store' ]);
@@ -37,10 +37,16 @@ Route::group([
 	'prefix' => 'votes',
 ], function () {
 	Route::get('/', [ 'as' => 'votes', 'uses' => 'VoteController@index' ]);
-//	Route::get('/my', [ 'as' => 'polls.my', 'uses' => 'PollController@my' ]);
-//	Route::get('/create', [ 'as' => 'poll.create', 'uses' => 'PollController@create' ]);
 	Route::post('/vote/{id}', [ 'as' => 'vote.store', 'uses' => 'VoteController@vote' ]);
-//	Route::get('/{id}', ['as' => 'poll.edit', 'uses' => 'PollController@edit']);
-//	Route::patch('/{id}', ['as' => 'poll.update', 'uses' => 'PollController@update']);
 	Route::delete('/vote/{id}', ['as' => 'vote.cancel', 'uses' => 'VoteController@cancel']);
+});
+Route::group([
+	'namespace' => 'App',
+	'prefix' => 'stats',
+], function () {
+	Route::get('/poll/{id}', [ 'as' => 'stats', 'uses' => 'StatController@index' ]);
+	Route::get('/poll/{id}/country', [ 'as' => 'stats.by.country', 'uses' => 'StatController@country' ]);
+	Route::get('/poll/{id}/city', [ 'as' => 'stats.by.city', 'uses' => 'StatController@city' ]);
+	Route::get('/poll/{id}/age', [ 'as' => 'stats.by.age', 'uses' => 'StatController@age' ]);
+	Route::get('/poll/{id}/sex', [ 'as' => 'stats.by.sex', 'uses' => 'StatController@sex' ]);
 });

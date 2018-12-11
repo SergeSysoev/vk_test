@@ -9,6 +9,10 @@
                 @endphp
                 <div class="poll answered">
                     <div class="header">
+                        <button type="button" class="btn btn-link open-statsModal"
+                                data-href="{{ route('stats', $poll->id) }}">
+                            Статистика
+                        </button>
                         <button type="button" class="btn btn-link cancel-vote"
                                 data-href="{{ route('vote.cancel', $poll->id) }}">
                             Отменить голос
@@ -44,6 +48,10 @@
             @else
                 <div class="poll">
                     <div class="header">
+                        <button type="button" class="btn btn-link open-statsModal"
+                                data-href="{{ route('stats', $poll->id) }}">
+                            Статистика
+                        </button>
                         <button type="button" class="btn btn-link cancel-vote"
                                 data-href="{{ route('vote.cancel', $poll->id) }}">
                             Отменить голос
@@ -80,5 +88,8 @@
             @endif
         @endforeach
     </div>
-    {{ $polls->links() }}
+    <div class="pagination-wrapper text-center">
+        {{ $polls->links() }}
+    </div>
 @endsection
+<div id="modal-wrapper"></div>

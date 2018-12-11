@@ -1,4 +1,9 @@
 (function ($) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
+        }
+    });
     $('#add_answer').on('click', () => {
         $('.answers').append('' +
             '<div class="row">' +
@@ -20,11 +25,6 @@
         e.preventDefault();
         let deleteEntry = confirm("Удалить опрос?");
         if(deleteEntry) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-                }
-            });
             $.ajax({
                 type: 'POST',
                 url: $this.attr('href'),
@@ -39,11 +39,6 @@
     });
     $(document).on('click', 'div[class*=choose-answer]', function() {
         let self = $(this);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-            }
-        });
         $.ajax({
             type: 'POST',
             url: $(this).data('href'),
@@ -62,11 +57,6 @@
     });
     $('.cancel-vote').on('click', function() {
         let self = $(this);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-            }
-        });
         $.ajax({
             type: 'POST',
             data: {
@@ -78,6 +68,79 @@
                     .find('.answer').removeClass('chosen').addClass('choose-answer')
                     .find('.percentage').css('width', '0')
                     .parents('.answer').find('.count').text('');
+            }
+        });
+    });
+    $(document).on("click", ".open-statsModal", function () {
+        $.ajax({
+            type: 'GET',
+            url: $(this).data('href'),
+            success: function (result) {
+                $('#modal-wrapper').html(result);
+                $('#statsModal').modal('show');
+                $('#pills-home-tab').tab('show')
+            }
+        });
+    });
+    $(document).on('change', '#country', function () {
+        $('#city').html('<option value="0">Город</option>').prop('disabled', true);
+        $.ajax({
+            type: 'GET',
+            url: $(this).data('href'),
+            data: {
+                countryId: $(this).val()
+            },
+            success: function (result) {
+                $('#pills-home').html(result);
+            }
+        });
+        $.ajax({
+            type: 'GET',
+            url: $(this).data('href-cities'),
+            data: {
+                countryId: $(this).val()
+            },
+            success: function (result) {
+                $('#city').html('<option value="0">Город</option>').prop('disabled', false);
+                Object.keys(result).forEach(function(key) {
+                    $('#city').append('<option value="'+result[key]['id']+'">'+result[key]['title']+'</option>');
+                });
+            }
+        });
+    });
+    $(document).on('change', '#city', function () {
+        $.ajax({
+            type: 'GET',
+            url: $(this).data('href'),
+            data: {
+                cityId: $(this).val()
+            },
+            success: function (result) {
+                $('#pills-home').html(result);
+            }
+        });
+    });
+    $(document).on('click', '#age', function () {
+        $.ajax({
+            type: 'GET',
+            url: $(this).data('href'),
+            data: {
+                age: $(this).val()
+            },
+            success: function (result) {
+                $('#pills-home').html(result);
+            }
+        });
+    });
+    $(document).on('click', '#sex', function () {
+        $.ajax({
+            type: 'GET',
+            url: $(this).data('href'),
+            data: {
+                sex: $(this).val()
+            },
+            success: function (result) {
+                $('#pills-home').html(result);
             }
         });
     });

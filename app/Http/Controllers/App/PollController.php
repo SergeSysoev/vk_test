@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Poll;
 use App\Answer;
 use App\Http\Requests\StorePollRequest;
+use Illuminate\Support\Facades\Cache;
 
 class PollController extends Controller
 {
@@ -44,6 +45,8 @@ class PollController extends Controller
 				'text' => $answer,
 			]);
 		}
+
+		Cache::forget('polls');
 
 		return redirect(route('polls.my'));
 	}
@@ -91,6 +94,7 @@ class PollController extends Controller
 			}
 		}
 
+		Cache::forget('polls');
 		return redirect(route('polls.my'));
 	}
 
@@ -99,6 +103,8 @@ class PollController extends Controller
 		$poll = $this->getPoll($id);
 
 		$poll->delete();
+
+		Cache::forget('polls');
 
 		return redirect(route('polls.my'));
 	}

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Country;
 use App\Http\Controllers\Controller;
+use App\Http\Services\PollService;
 use App\Poll;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 
 class IndexController extends Controller
 {
@@ -24,7 +26,7 @@ class IndexController extends Controller
 		    $all->forPage($page, $perPage), $all->count(), $perPage, $page
 	    );
 
-	    $answers = DB::table('answer_user')->where('user_id', '=', session('user_id'))->get();
+	    $answers = PollService::getUserAnswers(session('user_id'));
 
 	    $pollKeys = $answers->keyBy('poll_id')->keys()->toArray();
 	    $answersKeys = $answers->keyBy('answer_id');
@@ -34,5 +36,11 @@ class IndexController extends Controller
     		'answers' => $answersKeys,
     		'pollKeys' => $pollKeys,
 	    ]);
+    }
+
+    public function cities()
+    {
+    	$country = Country::findOrFail(Request::get('countryId'));
+    	return $country->cities;
     }
 }

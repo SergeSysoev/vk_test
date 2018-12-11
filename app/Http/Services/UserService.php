@@ -11,6 +11,7 @@ namespace App\Http\Services;
 use App\User;
 use App\Country;
 use App\City;
+use Carbon\Carbon;
 use GuzzleHttp;
 
 class UserService
@@ -39,10 +40,10 @@ class UserService
 		$countryId = NULL;
 		$cityId = NULL;
 
-		if($userData['country']) {
+		if(isset($userData['country'])) {
 			Country::firstOrCreate($userData['country']);
 			$countryId = $userData['country']['id'];
-			if($userData['city']) {
+			if(isset($userData['city'])) {
 				$userData['city']['country_id'] = $countryId;
 				City::firstOrCreate($userData['city']);
 				$cityId = $userData['city']['id'];
@@ -52,6 +53,7 @@ class UserService
 		$userData['country_id'] = $countryId;
 		$userData['city_id'] = $cityId;
 		$userData['sex'] = (string)$userData['sex'];
+		$userData['bdate'] = Carbon::createFromFormat('d.m.Y', $userData['bdate'])->timestamp;
 
 		if(!User::find($userData['id'])) {
 			User::create($userData);

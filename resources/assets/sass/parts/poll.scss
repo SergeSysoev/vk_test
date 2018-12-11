@@ -24,7 +24,8 @@
       justify-content: space-around;
       align-items: center;
       margin-bottom: 10px;
-      .cancel-vote {
+      .cancel-vote,
+      .open-statsModal {
         display: none;
       }
       h3 {
@@ -91,10 +92,17 @@
     }
     &.answered {
       .header {
-        .cancel-vote {
+        .cancel-vote,
+        .open-statsModal {
           display: block;
           position: absolute;
+        }
+        .cancel-vote {
           right: -5px;
+          top: -10px;
+        }
+        .open-statsModal {
+          left: -10px;
           top: -10px;
         }
       }
