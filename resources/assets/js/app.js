@@ -48,12 +48,12 @@
             type: 'POST',
             url: $(this).data('href'),
             success: function (result) {
-                $('.answer-'+self.data('id')).addClass('chosen')
-                    .find('.percentage').css('width', result[self.data('id')]['percentage']+'%').show();
+                $('.answer-'+self.data('id')).addClass('chosen');
                 Object.keys(result).forEach(function(key) {
                     $('.answer-'+key).find('b').text(result[key]['percentage']+'%');
                     if(result[key]['count'] > 0) {
                         $('.answer-'+key).find('.count').text('('+result[key]['count']+')');
+                        $('.answer-'+key).find('.percentage').css('width', result[key]['percentage']+'%').show();
                     }
                     self.find('i').show();
                     self.parents('.poll').addClass('answered');

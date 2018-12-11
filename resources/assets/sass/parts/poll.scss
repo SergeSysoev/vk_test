@@ -44,7 +44,7 @@
         position: relative;
         overflow: hidden;
         .percentage {
-          display: none;
+          visibility: hidden;
           position: absolute;
           width: 0;
           top: 0;
@@ -94,7 +94,7 @@
             }
           }
           .percentage {
-            display: block;
+            visibility: visible;
           }
           .answer-text {
             .count {
