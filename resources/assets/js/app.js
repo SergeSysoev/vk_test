@@ -22,7 +22,7 @@
         if(deleteEntry) {
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $this.data('token')
+                    'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
                 }
             });
             $.ajax({
@@ -37,11 +37,11 @@
             });
         }
     });
-    $('div[class*=choose-answer]').on('click', function() {
+    $(document).on('click', 'div[class*=choose-answer]', function() {
         let self = $(this);
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $(this).data('token')
+                'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
             }
         });
         $.ajax({
@@ -55,9 +55,29 @@
                         $('.answer-'+key).find('.count').text('('+result[key]['count']+')');
                         $('.answer-'+key).find('.percentage').css('width', result[key]['percentage']+'%').show();
                     }
-                    self.find('i').show();
                     self.parents('.poll').addClass('answered');
                 });
+            }
+        });
+    });
+    $('.cancel-vote').on('click', function() {
+        let self = $(this);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            data: {
+                _method: 'DELETE'
+            },
+            url: $(this).data('href'),
+            success: function () {
+                self.parents('.poll').removeClass('answered')
+                    .find('.answer').removeClass('chosen').addClass('choose-answer')
+                    .find('.percentage').css('width', '0')
+                    .parents('.answer').find('.count').text('');
             }
         });
     });

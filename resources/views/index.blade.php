@@ -9,6 +9,10 @@
                 @endphp
                 <div class="poll answered">
                     <div class="header">
+                        <button type="button" class="btn btn-link cancel-vote"
+                                data-href="{{ route('vote.cancel', $poll->id) }}">
+                            Отменить голос
+                        </button>
                         <h3>
                             {{ $poll->name }}
                         </h3>
@@ -21,7 +25,9 @@
                     </div>
                     <div class="body">
                         @foreach($poll->answers as $answer)
-                            <div class="answer {{ isset($answers[$answer->id]) ? 'chosen' : '' }} answer-{{ $answer->id }}">
+                            <div class="answer {{ isset($answers[$answer->id]) ? 'chosen' : '' }} answer-{{ $answer->id }}"
+                                 data-href="{{ route('vote.store', $answer->id) }}"
+                                 data-id="{{ $answer->id }}">
                                 <div class="percentage" style="width: {{ $pollAnswers[$answer->id]['percentage'] }}%"></div>
                                 <span class="answer-text">
                                     {{ $answer->text }}
@@ -38,6 +44,10 @@
             @else
                 <div class="poll">
                     <div class="header">
+                        <button type="button" class="btn btn-link cancel-vote"
+                                data-href="{{ route('vote.cancel', $poll->id) }}">
+                            Отменить голос
+                        </button>
                         <h3>
                             {{ $poll->name }}
                         </h3>
@@ -54,7 +64,6 @@
                             @else
                                 <div class="answer choose-answer answer-{{ $answer->id }}"
                                      data-href="{{ route('vote.store', $answer->id) }}"
-                                     data-token="{{ csrf_token() }}"
                                      data-id="{{ $answer->id }}">
                                     <div class="percentage"></div>
                                     <span class="answer-text">

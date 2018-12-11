@@ -42,5 +42,5 @@ Route::group([
 	Route::post('/vote/{id}', [ 'as' => 'vote.store', 'uses' => 'VoteController@vote' ]);
 //	Route::get('/{id}', ['as' => 'poll.edit', 'uses' => 'PollController@edit']);
 //	Route::patch('/{id}', ['as' => 'poll.update', 'uses' => 'PollController@update']);
-//	Route::delete('/{id}', ['as' => 'poll.destroy', 'uses' => 'PollController@destroy']);
+	Route::delete('/vote/{id}', ['as' => 'vote.cancel', 'uses' => 'VoteController@cancel']);
 });

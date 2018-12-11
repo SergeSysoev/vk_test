@@ -4,12 +4,10 @@ namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
 use App\Poll;
-use App\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use Symfony\Component\VarDumper\VarDumper;
 
 class IndexController extends Controller
 {
@@ -30,8 +28,6 @@ class IndexController extends Controller
 
 	    $pollKeys = $answers->keyBy('poll_id')->keys()->toArray();
 	    $answersKeys = $answers->keyBy('answer_id');
-
-//	    VarDumper::dump($answers);
 
     	return view('index')->with([
     		'polls' => $data,
