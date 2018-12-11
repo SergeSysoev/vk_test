@@ -38,6 +38,7 @@
         }
     });
     $('div[class*=choose-answer]').on('click', function() {
+        let self = $(this);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $(this).data('token')
@@ -47,8 +48,15 @@
             type: 'POST',
             url: $(this).data('href'),
             success: function (result) {
+                $('.answer-'+self.data('id')).addClass('chosen')
+                    .find('.percentage').css('width', result[self.data('id')]['percentage']+'%').show();
                 Object.keys(result).forEach(function(key) {
-                    $('.answer-'+key).find('.progress').css('width', result[key]['percentage']+'%').show();
+                    $('.answer-'+key).find('b').text(result[key]['percentage']+'%');
+                    if(result[key]['count'] > 0) {
+                        $('.answer-'+key).find('.count').text('('+result[key]['count']+')');
+                    }
+                    self.find('i').show();
+                    self.parents('.poll').addClass('answered');
                 });
             }
         });

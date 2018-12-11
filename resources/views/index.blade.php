@@ -22,10 +22,14 @@
                     <div class="body">
                         @foreach($poll->answers as $answer)
                             <div class="answer {{ isset($answers[$answer->id]) ? 'chosen' : '' }} answer-{{ $answer->id }}">
-                                <div class="progress" style="width: {{ $pollAnswers[$answer->id]['percentage'] }}%"></div>
-                                <span>
+                                <div class="percentage" style="width: {{ $pollAnswers[$answer->id]['percentage'] }}%"></div>
+                                <span class="answer-text">
                                     {{ $answer->text }}
+                                    <span class="count">
+                                        {{ $pollAnswers[$answer->id]['count'] > 0 ? '('.$pollAnswers[$answer->id]['count'].')' : '' }}
+                                    </span>
                                 </span>
+                                <i class="glyphicon glyphicon-ok"></i>
                                 <b>{{ $pollAnswers[$answer->id]['percentage'] }}%</b>
                             </div>
                         @endforeach
@@ -50,11 +54,15 @@
                             @else
                                 <div class="answer choose-answer answer-{{ $answer->id }}"
                                      data-href="{{ route('vote.store', $answer->id) }}"
-                                     data-token="{{ csrf_token() }}">
-                                    <div class="progress" style="width: 50%"></div>
-                                    <span>
-                                {{ $answer->text }}
-                            </span>
+                                     data-token="{{ csrf_token() }}"
+                                     data-id="{{ $answer->id }}">
+                                    <div class="percentage"></div>
+                                    <span class="answer-text">
+                                        {{ $answer->text }}
+                                        <span class="count"></span>
+                                    </span>
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                    <b></b>
                                 </div>
                             @endif
                         @endforeach
