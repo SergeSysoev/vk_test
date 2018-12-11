@@ -46,8 +46,10 @@
         $.ajax({
             type: 'POST',
             url: $(this).data('href'),
-            success: function () {
-                alert('1');
+            success: function (result) {
+                Object.keys(result).forEach(function(key) {
+                    $('.answer-'+key).find('.progress').css('width', result[key]['percentage']+'%').show();
+                });
             }
         });
     });

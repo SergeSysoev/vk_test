@@ -7,6 +7,7 @@ use App\Poll;
 use App\Answer;
 use Symfony\Component\VarDumper\VarDumper;
 use Illuminate\Support\Facades\DB;
+use App\Http\Services\PollService;
 
 class VoteController extends Controller
 {
@@ -26,5 +27,11 @@ class VoteController extends Controller
     		'poll_id' => $poll->id,
 		    'user_id' => session('user_id'),
 	    ]);
+
+    	$poll->fresh();
+
+		$answers = PollService::getVotes($poll);
+
+    	return $answers;
     }
 }

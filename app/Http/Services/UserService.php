@@ -13,8 +13,8 @@ use App\Country;
 use App\City;
 use GuzzleHttp;
 
-class UserService {
-
+class UserService
+{
 	private static function requestData($data)
 	{
 		$client = new GuzzleHttp\Client(['base_uri' => config('vk.base_api_uri')]);
