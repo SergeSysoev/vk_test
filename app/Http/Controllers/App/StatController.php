@@ -9,6 +9,7 @@ use App\Http\Services\PollService;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Request;
+use Symfony\Component\VarDumper\VarDumper;
 
 class StatController extends Controller
 {
@@ -32,7 +33,7 @@ class StatController extends Controller
 	    } else {
 		    $usersIds = User::where('country_id', $countryId)->get()->keyBy('id')->keys()->toArray();
 		    $filteredUsers = PollService::getUsersAnswersFiltered($usersIds, $poll)->keyBy('answer_id')->keys()->toArray();
-		    $votes = PollService::getVotesFiltered($poll, $filteredUsers);
+		    $votes = PollService::getVotesFiltered($poll, $filteredUsers, $usersIds);
 	    }
 
     	return view('polls.stats')->with([
@@ -51,7 +52,7 @@ class StatController extends Controller
 	    } else {
 		    $usersIds = User::where('city_id', $cityId)->get()->keyBy('id')->keys()->toArray();
 		    $filteredUsers = PollService::getUsersAnswersFiltered($usersIds, $poll)->keyBy('answer_id')->keys()->toArray();
-		    $votes = PollService::getVotesFiltered($poll, $filteredUsers);
+		    $votes = PollService::getVotesFiltered($poll, $filteredUsers, $usersIds);
 	    }
 
     	return view('polls.stats')->with([
@@ -71,7 +72,7 @@ class StatController extends Controller
 		    $dayAfter = (new DateTime(Carbon::now()))->modify('-'.$age.' years')->getTimestamp();
 		    $usersIds = User::where([['bdate', '<', $dayAfter]])->get()->keyBy('id')->keys()->toArray();
 		    $filteredUsers = PollService::getUsersAnswersFiltered($usersIds, $poll)->keyBy('answer_id')->keys()->toArray();
-		    $votes = PollService::getVotesFiltered($poll, $filteredUsers);
+		    $votes = PollService::getVotesFiltered($poll, $filteredUsers, $usersIds);
 	    }
 
     	return view('polls.stats')->with([
@@ -88,9 +89,10 @@ class StatController extends Controller
     	if(!$sex) {
     		$votes = PollService::getVotes($poll);
 	    } else {
-		    $usersIds = User::where('sex', (string)$sex)->get()->keyBy('id')->keys()->toArray();
+		    $usersIds = User::where('sex', $sex)->get()->keyBy('id')->keys()->toArray();
 		    $filteredUsers = PollService::getUsersAnswersFiltered($usersIds, $poll)->keyBy('answer_id')->keys()->toArray();
-		    $votes = PollService::getVotesFiltered($poll, $filteredUsers);
+		    $votes = PollService::getVotesFiltered($poll, $filteredUsers, $usersIds);
+		    VarDumper::dump($filteredUsers);
 	    }
 
     	return view('polls.stats')->with([

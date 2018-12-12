@@ -31,17 +31,20 @@ class PollService
 		return $answers;
 	}
 
-	public static function getVotesFiltered(Poll $poll, $filters)
+	public static function getVotesFiltered(Poll $poll, $filtersAnswers, $filterUsers)
 	{
 		$answers = [];
 
 		$totalAnswers = 0;
 
 		foreach ( $poll->answers as $answer ) {
-			if(in_array($answer->id, $filters)) {
-				$answers[$answer->id]['count'] = $answer->users->count();
-				$answers[$answer->id]['users'] = $answer->users;
-				$totalAnswers += $answer->users->count();
+			if(in_array($answer->id, $filtersAnswers)) {
+				$filteredUsers = $answer->users->filter(function ($user) use ( $filterUsers ) {
+					return in_array($user->id, $filterUsers);
+				});
+				$answers[$answer->id]['count'] = $filteredUsers->count();
+				$answers[$answer->id]['users'] = $filteredUsers;
+				$totalAnswers += $filteredUsers->count();
 			}
 			else {
 				$answers[$answer->id]['count'] = 0;
