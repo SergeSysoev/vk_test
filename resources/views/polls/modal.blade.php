@@ -57,7 +57,7 @@
             <div class="modal-footer">
                 <div class="col-md-4">
                     <b>Страна и город</b>
-                    <select name="country" id="country" data-href="{{ route('stats.by.country', $poll->id) }}"
+                    <select class="filter" name="country_id" id="country" data-href="{{ route('stats.filter', $poll->id) }}"
                         data-href-cities="{{ route('cities.get') }}">
                         <option value="0">
                             Страна
@@ -68,7 +68,7 @@
                             </option>
                         @endforeach
                     </select>
-                    <select name="city" id="city" disabled data-href="{{ route('stats.by.city', $poll->id) }}">
+                    <select class="filter" name="city_id" id="city" disabled data-href="{{ route('stats.filter', $poll->id) }}">
                         <option value="0">
                             Город
                         </option>
@@ -77,20 +77,20 @@
                 <div class="col-md-4">
                     <b>Возраст</b>
                     <br>
-                    <input type="radio" name="age" id="age" value="0" data-href="{{ route('stats.by.age', $poll->id) }}"> Любой
+                    <input class="filter" type="radio" name="bdate" id="bdate" value="0" data-href="{{ route('stats.filter', $poll->id) }}"> Любой
                     <br>
-                    <input type="radio" name="age" id="age" value="17" data-href="{{ route('stats.by.age', $poll->id) }}"> Старше 17 лет
+                    <input class="filter" type="radio" name="bdate" id="bdate" value="17" data-href="{{ route('stats.filter', $poll->id) }}"> Старше 17 лет
                     <br>
-                    <input type="radio" name="age" id="age" value="35" data-href="{{ route('stats.by.age', $poll->id) }}"> Старше 35 лет
+                    <input class="filter" type="radio" name="bdate" id="bdate" value="35" data-href="{{ route('stats.filter', $poll->id) }}"> Старше 35 лет
                 </div>
                 <div class="col-md-4">
                     <b>Пол</b>
                     <br>
-                    <input type="radio" name="sex" id="sex" value="0" data-href="{{ route('stats.by.sex', $poll->id) }}"> Любой
+                    <input class="filter" type="radio" name="sex" id="sex" value="0" data-href="{{ route('stats.filter', $poll->id) }}"> Любой
                     <br>
-                    <input type="radio" name="sex" id="sex" value="1" data-href="{{ route('stats.by.sex', $poll->id) }}"> Женский
+                    <input class="filter" type="radio" name="sex" id="sex" value="1" data-href="{{ route('stats.filter', $poll->id) }}"> Женский
                     <br>
-                    <input type="radio" name="sex" id="sex" value="2" data-href="{{ route('stats.by.sex', $poll->id) }}"> Мужской
+                    <input class="filter" type="radio" name="sex" id="sex" value="2" data-href="{{ route('stats.filter', $poll->id) }}"> Мужской
                 </div>
             </div>
         </div>

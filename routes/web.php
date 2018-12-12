@@ -45,8 +45,5 @@ Route::group([
 	'prefix' => 'stats',
 ], function () {
 	Route::get('/poll/{id}', [ 'as' => 'stats', 'uses' => 'StatController@index' ]);
-	Route::get('/poll/{id}/country', [ 'as' => 'stats.by.country', 'uses' => 'StatController@country' ]);
-	Route::get('/poll/{id}/city', [ 'as' => 'stats.by.city', 'uses' => 'StatController@city' ]);
-	Route::get('/poll/{id}/age', [ 'as' => 'stats.by.age', 'uses' => 'StatController@age' ]);
-	Route::get('/poll/{id}/sex', [ 'as' => 'stats.by.sex', 'uses' => 'StatController@sex' ]);
+	Route::get('/poll/{id}/filter', [ 'as' => 'stats.filter', 'uses' => 'StatController@filter' ]);
 });

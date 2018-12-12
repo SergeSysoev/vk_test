@@ -1,4 +1,7 @@
 (function ($) {
+
+    let filters = {};
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
@@ -78,22 +81,13 @@
             success: function (result) {
                 $('#modal-wrapper').html(result);
                 $('#statsModal').modal('show');
-                $('#pills-home-tab').tab('show')
+                $('#pills-home-tab').tab('show');
+                filters = {};
             }
         });
     });
     $(document).on('change', '#country', function () {
         $('#city').html('<option value="0">Город</option>').prop('disabled', true);
-        $.ajax({
-            type: 'GET',
-            url: $(this).data('href'),
-            data: {
-                countryId: $(this).val()
-            },
-            success: function (result) {
-                $('#pills-home').html(result);
-            }
-        });
         $.ajax({
             type: 'GET',
             url: $(this).data('href-cities'),
@@ -108,37 +102,16 @@
             }
         });
     });
-    $(document).on('change', '#city', function () {
+    $(document).on('change', '.filter', function () {
+        if($(this).val() == 0) {
+            delete filters[$(this).prop('name')];
+        } else {
+            filters[$(this).prop('name')] = $(this).val();
+        }
         $.ajax({
             type: 'GET',
             url: $(this).data('href'),
-            data: {
-                cityId: $(this).val()
-            },
-            success: function (result) {
-                $('#pills-home').html(result);
-            }
-        });
-    });
-    $(document).on('click', '#age', function () {
-        $.ajax({
-            type: 'GET',
-            url: $(this).data('href'),
-            data: {
-                age: $(this).val()
-            },
-            success: function (result) {
-                $('#pills-home').html(result);
-            }
-        });
-    });
-    $(document).on('click', '#sex', function () {
-        $.ajax({
-            type: 'GET',
-            url: $(this).data('href'),
-            data: {
-                sex: $(this).val()
-            },
+            data: {filters: filters},
             success: function (result) {
                 $('#pills-home').html(result);
             }
